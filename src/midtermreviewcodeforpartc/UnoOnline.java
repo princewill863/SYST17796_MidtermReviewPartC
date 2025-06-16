@@ -5,6 +5,7 @@
  */
 package midtermreviewcodeforpartc;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -17,16 +18,19 @@ import java.util.Scanner;
 public class UnoOnline 
 {
     private User users[] = new User[100];//room for 100 online players!
-     
-    /**
-     * Main method with call to private run method, to encapsulate our
-     * main functionality.
-     * @param args - not used
-     */
-    public static void main(String[] args) 
-     {
-       UnoOnline newPortal = new UnoOnline();
-       newPortal.run();
+    
+    public static void main(String[] args) {
+        PasswordValidator validator = new PasswordValidator(Arrays.asList(
+            new MinLengthRule(8),
+            new HasDigitRule()
+        ));
+
+        try {
+            User user = new User("player1", "abc12345", validator);
+            System.out.println("User created successfully.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Failed to create user: " + e.getMessage());
+        }
     }
      /**
      * method that takes in the User's name and chosen password

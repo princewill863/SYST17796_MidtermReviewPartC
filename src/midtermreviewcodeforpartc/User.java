@@ -25,6 +25,15 @@ public class User
         name = givenName;
         password=givenPass;
     }
+    
+    public User(String name, String password, PasswordValidator validator) {
+        this.name = name;
+        if (validator.validate(password)) {
+            this.password = password;
+        } else {
+            throw new IllegalArgumentException("Invalid password.");
+        }
+    }
 
     /** The getter for the user name
      * @return the name
